@@ -28,7 +28,7 @@ A web app for writing **Hazzat**, the notation used to learn Coptic Orthodox hym
 | ⲁ | a | ⲓ | i | ⲣ | r |
 | ⲃ | b | ⲕ | k | ⲥ | s |
 | ⲅ | g | ⲗ | l | ⲧ | t |
-| ⲇ | d | ⲙ | m | ⲩ | v |
+| ⲇ | d | ⲙ | m | ⲩ | y |
 | ⲉ | e | ⲛ | n | ϥ | f |
 | ⲍ | z | ⲝ | x | ⲭ | c |
 | ⲏ | h | ⲟ | o | ⲯ | ps |
