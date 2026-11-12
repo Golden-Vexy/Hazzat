@@ -4,6 +4,7 @@
   --text: #161514;
   --muted: #6f6860;
   --border: #e2ddd5;
+   --accent: #8c2a1f;          /* deep red */
 }
 
 /* Dark theme: same variable names, different values */
@@ -12,6 +13,7 @@
   --text: #f1e9dc;
   --muted: #a89f93;
   --border: #3d3732;
+  --accent: #e07a6c;          /* lighter red so it stays readable on dark */
 }
 
 body {
@@ -120,3 +122,18 @@ button {
 
 /* The Coptic font also needs to be used where the Coptic text appears */
 #hymnInput, #hymnOutput { font-family: "Noto Sans Coptic", Georgia, serif; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font: 600 20px system-ui, sans-serif;
+  color: var(--accent);
+}
+
+.logo-coptic {
+  font-family: "Noto Sans Coptic", serif;
+  font-size: 24px;
+  font-weight: 400;
+}
