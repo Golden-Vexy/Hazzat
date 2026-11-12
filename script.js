@@ -37,7 +37,7 @@ const COPTIC = [
 ];
 
 const KEYMAP = {
-    a: "ⲁ", b: "ⲃ", g: "ⲅ", d: "ⲇ", e: "ⲉ", z: "ⲍ", h: "ⲏ", q: "ⲑ", i: "ⲓ", k: "ⲕ",
+    a: "ⲁ", b: "ⲃ", g: "ⲅ", d: "ⲇ", e: "ⲉ", z: "ⲍ", h: "ⲏ", i: "ⲓ", k: "ⲕ",
     l: "ⲗ", m: "ⲙ", n: "ⲛ", x: "ⲝ", o: "ⲟ", p: "ⲡ", r: "ⲣ", s: "ⲥ", t: "ⲧ", u: "ⲩ",
     f: "ϥ", c: "ⲭ", y: "ⲯ", w: "ⲱ",
     "]": "ϩ", j: "ϫ",
@@ -50,6 +50,7 @@ const DIGRAPHS = {
     "ⲥh": "ϣ",  // s + h
     "ⲭh": "ϭ",  // c + h
     "ⲡh": "ⲫ",  // p + h
+    "ⲧh": "ⲑ",  // t + h
     "ⲧi": "ϯ",  // t + i
 };
 
@@ -158,7 +159,7 @@ function insertAtCursor(text) {
 keyboard.addEventListener("mousedown", (e) => e.preventDefault());
 
 const KEY_FOR = Object.fromEntries(Object.entries(KEYMAP).map(([k, v]) => [v, k]));
-Object.assign(KEY_FOR, { "ϧ": "kh", "ϣ": "sh", "ϭ": "ch", "ⲫ": "ph", "ϯ": "ti" });
+Object.assign(KEY_FOR, { "ϧ": "kh", "ϣ": "sh", "ϭ": "ch", "ⲫ": "ph", "ⲑ": "th", "ϯ": "ti" });
 buildKeyboard();
 
 // Combining marks: jinkim (\u0300) and the other accents in that range

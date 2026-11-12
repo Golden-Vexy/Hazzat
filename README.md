@@ -24,7 +24,7 @@ A web app for writing **Hazzat**, the notation used to learn Coptic Orthodox hym
 ### Coptic typing keys
 
 | Letter | Key | Letter | Key | Letter | Key |
-|--------|-----|--------|-----|--------|-----|
+| -------- | ----- | -------- | ----- | -------- | ----- |
 | ⲁ | a | ⲓ | i | ⲣ | r |
 | ⲃ | b | ⲕ | k | ⲥ | s |
 | ⲅ | g | ⲗ | l | ⲧ | t |
@@ -32,7 +32,7 @@ A web app for writing **Hazzat**, the notation used to learn Coptic Orthodox hym
 | ⲉ | e | ⲛ | n | ϥ | f |
 | ⲍ | z | ⲝ | x | ⲭ | c |
 | ⲏ | h | ⲟ | o | ⲯ | y |
-| ⲑ | q | ⲡ | p | ⲱ | w |
+| ⲑ | th | ⲡ | p | ⲱ | w |
 | ⲫ | ph | ϣ | sh | ϧ | kh |
 | ϭ | ch | ϯ | ti | ϩ | ] |
 | ϫ | j | ◌̀ (jinkim) | \` | | |
