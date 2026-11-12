@@ -65,7 +65,7 @@ function buildKeyboard() {
     }
 
     // Jinkim (the accent mark above a letter) and space
-    addSpecialKey("◌̀", "\u0300");
+    addSpecialKey("'", "\u0300");
     addSpecialKey("space", " ");
 }
 
@@ -98,3 +98,24 @@ function insertAtCursor(text) {
 keyboard.addEventListener("mousedown", (e) => e.preventDefault());
 
 buildKeyboard();
+
+// Combining marks: jinkim (\u0300) and the other accents in that range
+const COMBINING = /[\u0300-\u036F]/;
+
+input.addEventListener("keydown", (e) => {
+    if (e.key !== "Backspace") return;
+
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+
+    // Only change Backspace when nothing is highlighted;
+    // with a highlight, let it delete the selection normally
+    if (start !== end || start === 0) return;
+
+    const charBefore = input.value[start - 1];
+    if (COMBINING.test(charBefore)) {
+        e.preventDefault();                                  // stop the normal delete
+        input.setRangeText("", start - 1, start, "end");     // remove just the jinkim
+        render();
+    }
+});
