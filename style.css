@@ -92,3 +92,31 @@ button {
     grid-template-rows: 1fr 2fr;
   }
 }
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.key {
+  min-width: 36px;
+  height: 40px;
+  font: 20px "Noto Sans Coptic", serif;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.key:active { transform: scale(0.95); }
+
+.key.special { font: 13px system-ui, sans-serif; padding: 0 10px; }
+.key.shift-on { background: var(--text); color: var(--bg); }   /* one capital */
+.key.shift-lock { background: var(--text); color: var(--bg); text-decoration: underline; }
+
+/* The Coptic font also needs to be used where the Coptic text appears */
+#hymnInput, #hymnOutput { font-family: "Noto Sans Coptic", Georgia, serif; }

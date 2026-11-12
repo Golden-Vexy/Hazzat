@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hazzat</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Coptic&display=swap" rel="stylesheet">
     <script>
         // Runs before page appears, so it never flashes the wrong theme
         const saved = localStorage.getItem("theme");
@@ -24,6 +25,7 @@
         <section class="panel input-panel">
             <h2>Input</h2>
             <textarea id="hymnInput" placeholder="Type your hymn here..."></textarea>
+            <div id="copticKeyboard" class="keyboard"></div>
         </section>
 
         <section class="panel output-panel">
