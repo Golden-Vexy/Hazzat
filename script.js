@@ -13,3 +13,20 @@ toggle.addEventListener("click", () => {
 });
 
 updateButton();
+
+const input = document.getElementById("hymnInput");
+const output = document.getElementById("hymnOutput");
+
+function render() {
+    output.innerHTML = "";                       // clear the old output
+    const lines = input.value.split("\n");
+
+    for (const line of lines) {
+        const p = document.createElement("p");
+        p.textContent = line || "\u00A0";          // a blank line still takes up space
+        output.appendChild(p);
+    }
+}
+
+input.addEventListener("input", render);       // runs on every keystroke
+render();

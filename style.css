@@ -38,3 +38,57 @@ button {
   padding: 6px 12px;
   cursor: pointer;
 }
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 2fr;       /* output is twice as wide */
+  gap: 16px;
+  padding: 16px;
+  height: calc(100vh - 70px);           /* fill the screen below the header */
+  box-sizing: border-box;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  min-height: 0;                        /* lets the panels scroll instead of growing */
+}
+
+.panel h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+#hymnInput {
+  flex: 1;
+  resize: none;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  outline: none;
+  font: 15px/1.7 monospace;
+}
+
+#hymnOutput {
+  flex: 1;
+  overflow-y: auto;
+  font: 26px/2.4 Georgia, serif;        /* tall line height leaves room for marks */
+}
+
+#hymnOutput p {
+  margin: 0;
+}
+
+/* On phones, stack the panels instead of putting them side by side */
+@media (max-width: 800px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr;
+  }
+}

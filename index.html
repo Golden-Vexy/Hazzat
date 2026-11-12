@@ -20,8 +20,16 @@
         <button id="themeToggle">Dark mode</button>
     </header>
 
-    <main>
-        <p>Hazzat Editor</p>
+    <main class="workspace">
+        <section class="panel input-panel">
+            <h2>Input</h2>
+            <textarea id="hymnInput" placeholder="Type your hymn here..."></textarea>
+        </section>
+
+        <section class="panel output-panel">
+            <h2>Hazzat</h2>
+            <div id="hymnOutput"></div>
+        </section>
     </main>
 
     <script src="script.js"></script>
