@@ -39,13 +39,35 @@ const COPTIC = [
 const KEYMAP = {
     a: "ⲁ", b: "ⲃ", g: "ⲅ", d: "ⲇ", e: "ⲉ", z: "ⲍ", h: "ⲏ", q: "ⲑ", i: "ⲓ", k: "ⲕ",
     l: "ⲗ", m: "ⲙ", n: "ⲛ", x: "ⲝ", o: "ⲟ", p: "ⲡ", r: "ⲣ", s: "ⲥ", t: "ⲧ", u: "ⲩ",
-    f: "ⲫ", c: "ⲭ", y: "ⲯ", w: "ⲱ",
-    ";": "ϣ", v: "ϥ", "[": "ϧ", "]": "ϩ", j: "ϫ", "=": "ϭ", "#": "ϯ",
+    f: "ϥ", c: "ⲭ", y: "ⲯ", w: "ⲱ",
+    "]": "ϩ", j: "ϫ",
     "`": "\u0300"   // jinkim
 };
 
+// Coptic letter already typed + next key → combined letter
+const DIGRAPHS = {
+    "ⲕh": "ϧ",  // k + h
+    "ⲥh": "ϣ",  // s + h
+    "ⲭh": "ϭ",  // c + h
+    "ⲡh": "ⲫ",  // p + h
+    "ⲧi": "ϯ",  // t + i
+};
+
+// Returns the combined letter if the previous letter + this key form a digraph
+function findDigraph(ch) {
+    const pos = input.selectionStart;
+    if (pos !== input.selectionEnd || pos === 0) return null;   // nothing highlighted
+
+    const prev = input.value[pos - 1];
+    const combo = DIGRAPHS[prev.toLowerCase() + ch.toLowerCase()];
+    if (!combo) return null;
+
+    // Keep capitals
+    return prev !== prev.toLowerCase() ? combo.toUpperCase() : combo;
+}
+
 // Shifted versions of the punctuation keys, so Shift gives capitals there too
-const SHIFTED = { ":": ";", "{": "[", "}": "]", "+": "=" };
+const SHIFTED = { "}": "]" };
 
 function mapKey(ch) {
     if (KEYMAP[ch]) return KEYMAP[ch];
@@ -85,7 +107,6 @@ function buildKeyboard() {
     keyboard.appendChild(modeKey);
 
     // Letter keys
-    // Letter keys
     for (const letter of COPTIC) {
         const key = document.createElement("button");
         key.className = "key";
@@ -99,7 +120,7 @@ function buildKeyboard() {
     }
 
     // Jinkim (the accent mark above a letter) and space
-    addSpecialKey("'", "\u0300");
+    addSpecialKey("◌̀", "\u0300");
     addSpecialKey("space", " ");
 }
 
@@ -137,7 +158,7 @@ function insertAtCursor(text) {
 keyboard.addEventListener("mousedown", (e) => e.preventDefault());
 
 const KEY_FOR = Object.fromEntries(Object.entries(KEYMAP).map(([k, v]) => [v, k]));
-
+Object.assign(KEY_FOR, { "ϧ": "kh", "ϣ": "sh", "ϭ": "ch", "ⲫ": "ph", "ϯ": "ti" });
 buildKeyboard();
 
 // Combining marks: jinkim (\u0300) and the other accents in that range
@@ -164,13 +185,26 @@ input.addEventListener("keydown", (e) => {
             render();
         }
     }
-})
+});
 
 input.addEventListener("beforeinput", (e) => {
     if (!copticMode || e.isComposing) return;
     if (e.inputType !== "insertText" || !e.data) return;
 
-    // Map each character; phone keyboards sometimes insert several at once
+    // 1. Digraph: replace previous letter with the combined one
+    if (e.data.length === 1) {
+        const combo = findDigraph(e.data);
+        if (combo) {
+            e.preventDefault();
+            const pos = input.selectionStart;
+            input.setSelectionRange(pos - 1, pos);  // select previous letter
+            insertAtCursor(combo);                  // replace it (still undoable)
+            return;
+        }
+    }
+
+
+    // 2. Normal single-key mapping
     const mapped = [...e.data].map(ch => mapKey(ch) || ch).join("");
     if (mapped === e.data) return;      // nothing to change, so let it through
 
