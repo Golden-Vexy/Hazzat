@@ -38,7 +38,7 @@ A web app for writing **Hazzat**, the notation used to learn Coptic Orthodox hym
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Golden-Vexy/Personal-Hazzat-Project.git
+   git clone https://github.com/Golden-Vexy/Hazzat.git
    ```
 
 2. Open the folder in VS Code.
