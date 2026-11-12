@@ -18,12 +18,32 @@ A web app for writing **Hazzat**, the notation used to learn Coptic Orthodox hym
 - ⌨️ **On-screen Coptic keyboard:** the full Coptic alphabet, with shift (tap once for one capital, double-tap to lock) and a jinkim key
 - ⌫ **Jinkim-aware backspace:** deletes the jinkim before the letter beneath it
 - 🌗 **Light and dark themes:** follows your device setting and remembers your choice
+- 🔤 **Coptic typing mode:** type Coptic with your normal keyboard (`a` → ⲁ, `ph` → ⲫ, `ti` → ϯ), with the matching key shown on each on-screen key
+- ↩️ **Undo support:** Ctrl+Z works for everything you type, including the on-screen keyboard
+
+### Coptic typing keys
+
+| Letter | Key | Letter | Key | Letter | Key |
+|--------|-----|--------|-----|--------|-----|
+| ⲁ | a | ⲓ | i | ⲣ | r |
+| ⲃ | b | ⲕ | k | ⲥ | s |
+| ⲅ | g | ⲗ | l | ⲧ | t |
+| ⲇ | d | ⲙ | m | ⲩ | u |
+| ⲉ | e | ⲛ | n | ϥ | f |
+| ⲍ | z | ⲝ | x | ⲭ | c |
+| ⲏ | h | ⲟ | o | ⲯ | y |
+| ⲑ | q | ⲡ | p | ⲱ | w |
+| ⲫ | ph | ϣ | sh | ϧ | kh |
+| ϭ | ch | ϯ | ti | ϩ | ] |
+| ϫ | j | ◌̀ (jinkim) | \` | | |
+
+Hold Shift for capitals. To type two letters that would otherwise combine (like ⲥⲏ in ⲥⲏⲟⲩ), tap the second letter on the on-screen keyboard.
 
 ## Planned
 
 - [ ] Hazzat marks (beats, holds, slides, stops) drawn between syllables
 - [ ] Auto-save hymns in the browser
-- [ ] Typing Coptic with the physical keyboard
+- [x] Typing Coptic with the physical keyboard
 - [ ] Saving and organizing multiple hymns
 - [ ] Printing and exporting
 
