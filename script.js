@@ -86,11 +86,16 @@ function onShift() {
 }
 
 function insertAtCursor(text) {
-    const start = input.selectionStart;
-    const end = input.selectionEnd;
-    input.setRangeText(text, start, end, "end");   // replaces any selection, moves cursor after
     input.focus();
-    render();                                      // update the output panel
+
+    // Inserts like real typing, so it goes into undo history
+    const ok = document.execCommand("insertText", false, text);
+
+    // Fallback if the browser ever drops execCommand (undo won't work then)
+    if (!ok) {
+        input.setRangeText(text, input.selectionStart, input.selectionEnd, "end");
+        render();
+    }
 }
 
 // Stop the buttons from taking focus away from the textarea,
