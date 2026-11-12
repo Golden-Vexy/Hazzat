@@ -28,10 +28,10 @@ A web app for writing **Hazzat**, the notation used to learn Coptic Orthodox hym
 | ⲁ | a | ⲓ | i | ⲣ | r |
 | ⲃ | b | ⲕ | k | ⲥ | s |
 | ⲅ | g | ⲗ | l | ⲧ | t |
-| ⲇ | d | ⲙ | m | ⲩ | u |
+| ⲇ | d | ⲙ | m | ⲩ | v |
 | ⲉ | e | ⲛ | n | ϥ | f |
 | ⲍ | z | ⲝ | x | ⲭ | c |
-| ⲏ | h | ⲟ | o | ⲯ | y |
+| ⲏ | h | ⲟ | o | ⲯ | ps |
 | ⲑ | th | ⲡ | p | ⲱ | w |
 | ⲫ | ph | ϣ | sh | ϧ | kh |
 | ϭ | ch | ϯ | ti | ϩ | ] |
