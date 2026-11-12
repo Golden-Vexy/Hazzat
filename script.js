@@ -36,9 +36,29 @@ const COPTIC = [
     "ⲡ", "ⲣ", "ⲥ", "ⲧ", "ⲩ", "ⲫ", "ⲭ", "ⲯ", "ⲱ", "ϣ", "ϥ", "ϧ", "ϩ", "ϫ", "ϭ", "ϯ"
 ];
 
+const KEYMAP = {
+    a: "ⲁ", b: "ⲃ", g: "ⲅ", d: "ⲇ", e: "ⲉ", z: "ⲍ", h: "ⲏ", q: "ⲑ", i: "ⲓ", k: "ⲕ",
+    l: "ⲗ", m: "ⲙ", n: "ⲛ", x: "ⲝ", o: "ⲟ", p: "ⲡ", r: "ⲣ", s: "ⲥ", t: "ⲧ", u: "ⲩ",
+    f: "ⲫ", c: "ⲭ", y: "ⲯ", w: "ⲱ",
+    ";": "ϣ", v: "ϥ", "[": "ϧ", "]": "ϩ", j: "ϫ", "=": "ϭ", "#": "ϯ",
+    "`": "\u0300"   // jinkim
+};
+
+// Shifted versions of the punctuation keys, so Shift gives capitals there too
+const SHIFTED = { ":": ";", "{": "[", "}": "]", "+": "=" };
+
+function mapKey(ch) {
+    if (KEYMAP[ch]) return KEYMAP[ch];
+    if (SHIFTED[ch]) return KEYMAP[SHIFTED[ch]].toUpperCase();
+    const lower = ch.toLowerCase();
+    if (ch !== lower && KEYMAP[lower]) return KEYMAP[lower].toUpperCase();  // Shift+a → Ⲁ
+    return null;   // not a Coptic key, so type it normally
+}
+
 const keyboard = document.getElementById("copticKeyboard");
 let shift = "off";   // "off" | "once" | "lock"
 let lastShiftTap = 0;
+let copticMode = localStorage.getItem("copticMode") === "on";
 
 function buildKeyboard() {
     keyboard.innerHTML = "";
@@ -52,13 +72,27 @@ function buildKeyboard() {
     shiftKey.addEventListener("click", onShift);
     keyboard.appendChild(shiftKey);
 
+    const modeKey = document.createElement("button");
+    modeKey.className = "key special";
+    if (copticMode) modeKey.classList.add("shift-on");
+    modeKey.textContent = copticMode ? "Coptic typing: ON" : "Coptic typing: OFF";
+    modeKey.addEventListener("click", () => {
+        copticMode = !copticMode;
+        localStorage.setItem("copticMode", copticMode ? "on" : "off");
+        buildKeyboard();
+        input.focus();
+    });
+    keyboard.appendChild(modeKey);
+
+    // Letter keys
     // Letter keys
     for (const letter of COPTIC) {
         const key = document.createElement("button");
         key.className = "key";
-        key.textContent = shift === "off" ? letter : letter.toUpperCase();
+        const shown = shift === "off" ? letter : letter.toUpperCase();
+        key.innerHTML = `${shown}<small>${KEY_FOR[letter] || ""}</small>`;
         key.addEventListener("click", () => {
-            insertAtCursor(key.textContent);
+            insertAtCursor(shown);
             if (shift === "once") { shift = "off"; buildKeyboard(); }  // one capital only
         });
         keyboard.appendChild(key);
@@ -102,6 +136,8 @@ function insertAtCursor(text) {
 // so the cursor stays where it was when you tap a letter
 keyboard.addEventListener("mousedown", (e) => e.preventDefault());
 
+const KEY_FOR = Object.fromEntries(Object.entries(KEYMAP).map(([k, v]) => [v, k]));
+
 buildKeyboard();
 
 // Combining marks: jinkim (\u0300) and the other accents in that range
@@ -120,7 +156,24 @@ input.addEventListener("keydown", (e) => {
     const charBefore = input.value[start - 1];
     if (COMBINING.test(charBefore)) {
         e.preventDefault();                                  // stop the normal delete
-        input.setRangeText("", start - 1, start, "end");     // remove just the jinkim
-        render();
+        input.setSelectionRange(start - 1, start);           // select just the jinkim
+
+        // delete the selection, undoable
+        if (!document.execCommand("delete")) {
+            input.setRangeText("", start - 1, start, "end");
+            render();
+        }
     }
+})
+
+input.addEventListener("beforeinput", (e) => {
+    if (!copticMode || e.isComposing) return;
+    if (e.inputType !== "insertText" || !e.data) return;
+
+    // Map each character; phone keyboards sometimes insert several at once
+    const mapped = [...e.data].map(ch => mapKey(ch) || ch).join("");
+    if (mapped === e.data) return;      // nothing to change, so let it through
+
+    e.preventDefault();                 // block the Latin letter...
+    insertAtCursor(mapped);             // ...and insert the Coptic one instead
 });
