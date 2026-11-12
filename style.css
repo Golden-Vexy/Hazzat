@@ -1,0 +1,40 @@
+/* Light theme (the default) */
+:root {
+  --bg: #ffffff;
+  --text: #161514;
+  --muted: #6f6860;
+  --border: #e2ddd5;
+}
+
+/* Dark theme: same variable names, different values */
+[data-theme="dark"] {
+  --bg: #25211e;
+  --text: #f1e9dc;
+  --muted: #a89f93;
+  --border: #3d3732;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  transition: background 0.2s, color 0.2s;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+button {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
